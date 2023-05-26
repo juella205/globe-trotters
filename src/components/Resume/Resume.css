@@ -1,0 +1,25 @@
+.resume-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .resume-link {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .proficiencies-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .proficiencies-list li {
+    margin-bottom: 5px;
+  }
+  
