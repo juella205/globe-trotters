@@ -11,7 +11,8 @@ const typeDefs = gql`
 
   type City {
     _id: ID
-    name: String
+    cityName: String
+    username: String
     activities: [Activity]!
   }
 
