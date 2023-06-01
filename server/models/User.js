@@ -25,6 +25,12 @@ const userSchema = new Schema({
       ref: 'City',
     },
   ],
+  activities: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Activity',
+    },
+  ],
 });
 
 // set up pre-save middleware to create password
@@ -40,6 +46,16 @@ userSchema.pre('save', async function (next) {
 // compare the incoming password with the hashed password
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
+};
+
+// New method to get user's activities for a particular city
+userSchema.methods.getActivitiesByCity = async function(city) {
+  const populatedUser = await this.populate({
+    path: 'activities',
+    match: { city },
+  }).execPopulate();
+
+  return populatedUser.activities;
 };
 
 const User = model('User', userSchema);
