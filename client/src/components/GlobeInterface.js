@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Box, useBreakpointValue } from '@chakra-ui/react';
 import Globe from 'react-globe.gl';
 
 const GlobeInterface = () => {
@@ -7,7 +8,7 @@ const GlobeInterface = () => {
   useEffect(() => {
     // Load data
     fetch('/datasets/ne_110m_populated_places_simple.geojson')
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(({ features }) => setPlaces(features));
   }, []);
 
@@ -16,8 +17,10 @@ const GlobeInterface = () => {
     console.log('Selected city:', city);
   };
 
+  const globeWidth = useBreakpointValue({ base: '100%', md: '500px' });
+
   return (
-    <div className="globe-interface">
+    <Box width={globeWidth} mx="auto">
       <Globe
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
         backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
@@ -30,8 +33,9 @@ const GlobeInterface = () => {
         labelColor={() => 'rgba(255, 165, 0, 0.75)'}
         labelResolution={2}
         onClickLabel={handleCityClick}
+        globeZoom={2}
       />
-    </div>
+    </Box>
   );
 };
 

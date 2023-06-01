@@ -3,16 +3,19 @@ import Globe from "react-globe.gl";
 import GlobeInterface from "./components/GlobeInterface";
 import Itinerary from "./components/Itinerary";
 import Login from "./components/Login";
-import { Heading } from "@chakra-ui/react";
+import Navbar from "./components/NavBar";
+import { Heading, useColorMode } from "@chakra-ui/react";
+
 
 function App() {
+  const {colorMode} = useColorMode();
   return (
     <div className="app">
-      <Heading>Globe Trotters</Heading>
-      {/* Add navigation elements */}
-
+      <div className="heading-container">
+      <Heading textAlign="center" bg={colorMode === "light" ? "gray.100" : "gray.900"}>Globe Trotters</Heading>
+      </div>
+      <Navbar />
       <div className="content">
-        <Login />
         <GlobeInterface />
         <Itinerary />
       </div>
