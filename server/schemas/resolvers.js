@@ -4,7 +4,7 @@ const { User, City, Activity } = require('../models');
 const resolvers = {
     Query: {
         users: async () => {
-            return User.find().populate('thoughts');
+            return User.find().populate('cities');
           },
         user: async (parent, { username }) => {
             return User.findOne({ username }).populate('cities');
@@ -17,7 +17,6 @@ const resolvers = {
             return City.findOne({ _id: cityId });
         },
         // Adding resolver for retrieving activities and user activities by ID and throwing error if user is not found
-        activities: () => Activity.find(),
         userActivities: async (_, { userId, city }) => {
             const user = await User.findById(userId).populate({
                 path: 'activities',
