@@ -13,7 +13,7 @@ const resolvers = {
       const token = signToken(user);
       return {token, user };
     },
-    // Add other mutation resolvers here if needed
+    // Other mutation resolvers here 
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -22,6 +22,8 @@ const resolvers = {
         throw new AuthenticationError('No user found with this email address');
       }
       
+      // If there is a user found, execute the `isCorrectPassword` instance method and check if the correct password was provided
+      const correctPW = await user.isCorrectPassword(password);
 
 
 
