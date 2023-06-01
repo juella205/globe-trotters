@@ -25,7 +25,10 @@ const resolvers = {
       // If there is a user found, execute the `isCorrectPassword` instance method and check if the correct password was provided
       const correctPW = await user.isCorrectPassword(password);
 
-
+    // If the password is incorrect, return an Authentication error stating so
+      if (!correctPW) {
+        throw new AuthenticationError('Incorrect password');
+      }
 
 
     },
