@@ -33,13 +33,12 @@ const resolvers = {
      // If email and password are correct, sign user into the application with a JWT
         const token = signToken(user);
 
+      
     // Return an `Auth` object that consists of the signed token and user's information
       return {token, user};
 
-    // If the user is signedout, return a message stating so
-      signOut:() => {
-        return {message: 'Sign-out sucessful'};
-      };
+      
+        
 
 
     },
