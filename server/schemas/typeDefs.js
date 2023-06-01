@@ -7,6 +7,7 @@ const typeDefs = gql`
     email: String
     password: String
     cities: [City]!
+    activities: [Activity]!
   }
 
   type City {
@@ -17,8 +18,9 @@ const typeDefs = gql`
 
   type Activity {
     _id: ID
-    activityText: String
-    activityCity: String
+    title: String
+    description: String
+    city: String
     createdAt: String
   }
 
@@ -29,12 +31,19 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
+    userActivities(userId: ID!, city: String!): [Activity]
   }
 
   type Mutation {
-
+    createActivity(title: String, description: String): Activity
+    updateActivity(id: ID!, title: String, description: String): Activity
+    deleteActivity(id: ID!): Activity
   }
 `;
 
 
 module.exports = typeDefs;
+// Added Activities field to User type to represent the users activities
+// Added userActivities to query type which accepts userId and city as args and returns an array of activities
+// Added create, update, and delete activity mutations to handle each respectively
+// Changed Activity type fields to match the activity model
