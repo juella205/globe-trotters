@@ -1,4 +1,5 @@
-// insert code from Stephen
+
+const { User, City, Activity } = require('../models');
 
 const resolvers = {
     Query: {
@@ -30,3 +31,5 @@ const resolvers = {
         },
     }
 };
+
+module.exports = resolvers;
