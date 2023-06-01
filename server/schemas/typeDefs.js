@@ -12,7 +12,8 @@ const typeDefs = gql`
 
   type City {
     _id: ID
-    name: String
+    cityName: String
+    username: String
     activities: [Activity]!
   }
 
@@ -31,10 +32,15 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
+    user(username: String!): User
+    cities(username: String): [City]
+    city(cityId: ID!): City
     userActivities(userId: ID!, city: String!): [Activity]
   }
 
   type Mutation {
+    addCity(cityName: String!, username: String!): City
+    removeCity(cityId: ID!): City
     createActivity(title: String, description: String): Activity
     updateActivity(id: ID!, title: String, description: String): Activity
     deleteActivity(id: ID!): Activity

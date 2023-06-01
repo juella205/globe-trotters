@@ -1,8 +1,18 @@
-const Activity = require('../models/Activity');
-const User = require('../models/User');
+
+const { User, City, Activity } = require('../models');
 
 const resolvers = {
     Query: {
+        user: async (parent, { username }) => {
+            return User.findOne({ username }).populate('cities');
+        },
+        cities: async (parent, { username }) => {
+            const params = username ? { username } : {};
+            return City.find(params).sort({ createdAt: -1 });
+        },
+        city: async (parent, { cityId }) => {
+            return City.findOne({ _id: cityId });
+        },
         // Adding resolver for retrieving activities and user activities by ID and throwing error if user is not found
         activities: () => Activity.find(),
         userActivities: async (_, { userId, city }) => {
@@ -16,9 +26,23 @@ const resolvers = {
             }
 
             return user.activities;
-        }
+        },
     },
+
     Mutation: {
+        addCity: async (parent, { cityName, username }) => {
+            const city = await City.create({ cityName, username });
+
+            await User.findOneAndUpdate(
+                { username: username },
+                { $addToSet: { cities: city._id } }
+            );
+
+            return city;
+        },
+        removeCity: async (parent, { cityId }) => {
+            return City.findOneAndDelete({ _id: cityId });
+        },
         // The resolver for creating a new activity
         createActivity: async (_, { title, description }) => {
             const activity = new Activity({ title, description });
@@ -35,7 +59,7 @@ const resolvers = {
             const activity = await Activity.findByIdAndDelete(id);
             return activity;
         },
-    },
+    }
 };
 
 module.exports = resolvers;
