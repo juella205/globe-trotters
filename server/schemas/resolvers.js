@@ -1,23 +1,25 @@
-const resolvers = {
+const jwt = require('jsonwebtoken');
+cconst resolvers = {
     Query: {
-      // Your existing query resolvers
-    },
+      users: async () => {
+        return User.find().populate('thoughts');
+      },
     Mutation: {
       createUser: async (parent, { input }, context) => {
-        // Perform validation, password hashing, and database insertion
-        const { name, email, password } = input;
-        const user = await User.create({
-            name,
-            email,
-            password, // Remember to hash the password before storing it in the database
-          });
-    
+        // Create user
+     const { name, email, password } = input;
+    const user = await User.create({ name,email,password,});
+     const token = signToken(user);
           return user;
         },
         // Add other mutation resolvers here if needed
+        login: async (parent, { email, password }) => {
+        const user = await User.findOne({ email });
       },
-    };
+    }; 
     
     module.exports = resolvers;
-        
+    };
+};
+
   
