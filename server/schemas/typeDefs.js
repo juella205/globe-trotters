@@ -29,11 +29,14 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User]
+    user(username: String!): User
+    cities(username: String): [City]
+    city(cityId: ID!): City
   }
 
   type Mutation {
-
+    addCity(cityName: String!, username: String!): City
+    removeCity(cityId: ID!): City
   }
 `;
 
