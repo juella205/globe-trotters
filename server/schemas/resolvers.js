@@ -36,6 +36,11 @@ const resolvers = {
     // Return an `Auth` object that consists of the signed token and user's information
       return {token, user};
 
+    // If the user is signedout, return a message stating so
+      signOut:() => {
+        return {message: 'Sign-out sucessful'};
+      };
+
 
     },
   },
