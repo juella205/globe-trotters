@@ -1,10 +1,12 @@
+const { AuthenticationError } = require('apollo-server-express');
 const jwt = require('jsonwebtoken');
 const { User, City, Activity } = require('../models');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
         users: async () => {
-            return User.find().populate('thoughts');
+            return User.find().populate('cities');
           },
         user: async (parent, { username }) => {
             return User.findOne({ username }).populate('cities');
@@ -17,7 +19,6 @@ const resolvers = {
             return City.findOne({ _id: cityId });
         },
         // Adding resolver for retrieving activities and user activities by ID and throwing error if user is not found
-        activities: () => Activity.find(),
         userActivities: async (_, { userId, city }) => {
             const user = await User.findById(userId).populate({
                 path: 'activities',
@@ -62,15 +63,15 @@ const resolvers = {
             const activity = await Activity.findByIdAndDelete(id);
             return activity;
         },
-        createUser: async (parent, { username, email, password }) => {
+        createUser: async (parent, args) => {
             // Create user
-            const user = await User.create({ username, email, password });
+            const user = await User.create(args);
             const token = signToken(user);
             return {token, user };
           },
           // Other mutation resolvers here 
-          login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
+          login: async (parent, args) => {
+            const user = await User.findOne({email: args.email});
       
             // If there is no user with the email address, return an Authentication error stating sp
             if (!user) {
@@ -78,7 +79,7 @@ const resolvers = {
             }
             
             // If there is a user found, execute the `isCorrectPassword` instance method and check if the correct password was provided
-            const correctPW = await user.isCorrectPassword(password);
+            const correctPW = await user.isCorrectPassword(args.password);
       
           // If the password is incorrect, return an Authentication error stating so
             if (!correctPW) {
@@ -90,7 +91,7 @@ const resolvers = {
       
             
           // Return an `Auth` object that consists of the signed token and user's information
-            return {token, user};
+          return {token, user};
           },
         },
     };
