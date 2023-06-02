@@ -1,18 +1,30 @@
 import React from 'react';
+import { Box, Heading, Text, UnorderedList, ListItem } from '@chakra-ui/react';
 
 const ItineraryCard = ({ destination, accommodation, activities }) => {
   return (
-    <div className="itinerary-card">
-      <h3>{destination}</h3>
-      <p>Accommodation: {accommodation}</p>
-      <ul>
+    <Box
+      borderWidth="1px"
+      borderRadius="lg"
+      p="4"
+      mb="4"
+      boxShadow="md"
+      bg="gray"
+    >
+      <Heading as="h3" size="md" mb="2">
+        {destination}
+      </Heading>
+      <Text mb="2">Accommodation: {accommodation}</Text>
+      <Text as="p" fontWeight="bold" mb="1">
+        Activities:
+      </Text>
+      <UnorderedList pl="4">
         {activities.map((activity, index) => (
-          <li key={index}>{activity}</li>
+          <ListItem key={index}>{activity}</ListItem>
         ))}
-      </ul>
-    </div>
+      </UnorderedList>
+    </Box>
   );
 };
 
 export default ItineraryCard;
-

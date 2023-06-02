@@ -47,7 +47,7 @@ function App() {
             activities={itinerary.activities}
           />
         ))}
-        <Itinerary />
+        {/* <Itinerary /> */}
       </div>
     </div>
   );
