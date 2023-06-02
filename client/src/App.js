@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Globe from "react-globe.gl";
 import GlobeInterface from "./components/GlobeInterface";
-import Itinerary from "./components/Itinerary";
+// import Itinerary from "./components/Itinerary";
 import ItineraryCard from "./components/ItineraryCard";
 import Navbar from "./components/NavBar";
 import { Heading, useColorMode, Modal, ModalOverlay, ModalContent } from "@chakra-ui/react";
@@ -39,14 +39,8 @@ function App() {
         <ItineraryModal onSave={handleSaveItinerary} onClose={() => setIsModalOpen(false)}/>
         </ModalContent>
         </Modal>
-        {itineraries.map((itinerary, index) => (
-          <ItineraryCard
-            key={index}
-            destination={itinerary.city}
-            accommodation={itinerary.accommodation}
-            activities={itinerary.activities}
+          <ItineraryCard itineraries={itineraries}
           />
-        ))}
         {/* <Itinerary /> */}
       </div>
     </div>
