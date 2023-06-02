@@ -19,17 +19,11 @@ const resolvers = {
             return City.findOne({ _id: cityId });
         },
         // Adding resolver for retrieving activities and user activities by ID and throwing error if user is not found
-        userActivities: async (_, { userId, city }) => {
-            const user = await User.findById(userId).populate({
-                path: 'activities',
-                match: { city },
-            });
+        activities: async (_, { username , city }) => {
+            const params = {username : { username }, city : { city }  };
+            return Activity.find(params).sort({ createdAt: -1 });
 
-            if (!user) {
-                throw new Error('User not found');
-            }
-
-            return user.activities;
+            
         },
     },
 
@@ -48,9 +42,15 @@ const resolvers = {
             return City.findOneAndDelete({ _id: cityId });
         },
         // The resolver for creating a new activity
-        createActivity: async (_, { title, description }) => {
-            const activity = new Activity({ title, description });
-            await activity.save();
+        createActivity: async (_, { title, description, city, username  }) => {
+            const activity = await Activity.create({ title, description, city, username });
+            
+            await City.findOneAndUpdate(
+                { cityName: city  },
+                {  username: username },
+                { $addToSet: { activities: activity._id } }
+            );  
+            
             return activity;
         },
         // The resolver for updating a existing activity, finds by ID and updates its title and description

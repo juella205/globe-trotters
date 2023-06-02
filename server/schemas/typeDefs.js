@@ -7,7 +7,7 @@ const typeDefs = gql`
     email: String
     password: String
     cities: [City]!
-    activities: [Activity]!
+
   }
 
   type City {
@@ -23,6 +23,7 @@ const typeDefs = gql`
     description: String
     city: String
     createdAt: String
+    username: String
   }
 
   type Auth {
@@ -35,13 +36,13 @@ const typeDefs = gql`
     user(username: String!): User
     cities(username: String): [City]
     city(cityId: ID!): City
-    userActivities(userId: ID!, city: String!): [Activity]
+    activities(username: String!, city: String!): [Activity]
   }
 
   type Mutation {
     addCity(cityName: String!, username: String!): City
     removeCity(cityId: ID!): City
-    createActivity(title: String, description: String): Activity
+    createActivity(title: String, description: String, city: String, username: String): Activity
     updateActivity(id: ID!, title: String, description: String): Activity
     deleteActivity(id: ID!): Activity
     createUser(username: String!, email: String!, password: String!): User
