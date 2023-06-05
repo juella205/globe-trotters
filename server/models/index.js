@@ -17,6 +17,21 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     email: { type: String, required: true },
     password: { type: String, required: true }
   });
+  const User = mongoose.model('User', userSchema);
+
+  funtion saverUser() {
+    const newUser = new User ({
+        username:'',
+        email: '',
+        password: ''
+    });
+
+
+
+
+
+
+  }
 
 
 
