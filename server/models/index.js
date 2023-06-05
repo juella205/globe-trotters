@@ -19,18 +19,21 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   });
   const User = mongoose.model('User', userSchema);
 
-  funtion saverUser() {
+  function saverUser() {
     const newUser = new User ({
         username:'',
         email: '',
         password: ''
     });
-
-
-
-
-
-
+    newUser.save()
+    .then((savedUser) => {
+      console.log('User saved successfully:', savedUser);
+      mongoose.connection.close();
+    })
+    .catch((error) => {
+      console.error('Failed to save the user:', error);
+      mongoose.connection.close();
+    });
   }
 
 
