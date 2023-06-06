@@ -42,7 +42,7 @@ const typeDefs = gql`
   type Mutation {
     addCity(cityName: String!, username: String!): City
     removeCity(cityId: ID!): City
-    createActivity(title: String, description: String, city: String, username: String): Activity
+    createActivity(title: String!, description: String!, city: String!, username: String!): Activity
     updateActivity(id: ID!, title: String, description: String): Activity
     deleteActivity(id: ID!): Activity
     createUser(username: String!, email: String!, password: String!): User
