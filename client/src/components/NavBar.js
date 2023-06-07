@@ -36,7 +36,7 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-const Navbar = () => {
+const Navbar = ({onSave}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false); // New state variable to track login form visibility
 
@@ -47,6 +47,10 @@ const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleNewPlan = () => {
     setIsModalOpen(true);
+  }
+
+  const handleSave = (itnData) => {
+    onSave(itnData);
   }
     
 
@@ -87,7 +91,7 @@ const Navbar = () => {
             <ItineraryModal 
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            onSave={handleNewPlan}
+            onSave={handleSave}
              />
             <Button
               variant={'solid'}

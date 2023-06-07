@@ -39,7 +39,7 @@ const ItineraryModal = ({ onSave, isOpen, onClose }) => {
       <ModalContent>
         <ModalHeader>Create New Itinerary</ModalHeader>
         <ModalCloseButton />
-        <form onSubmit={handleSubmit}>
+        <form>
           <ModalBody>
             <VStack spacing={4}>
               <FormControl>
@@ -68,7 +68,7 @@ const ItineraryModal = ({ onSave, isOpen, onClose }) => {
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" colorScheme="blue">
+            <Button type="submit" colorScheme="blue" onClick={handleSubmit}>
               Save
             </Button>
           </ModalFooter>
