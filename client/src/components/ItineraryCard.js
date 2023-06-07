@@ -1,9 +1,26 @@
-import React from 'react';
-import { Box, Heading, Text, UnorderedList, ListItem } from '@chakra-ui/react';
+import React from "react";
+import {
+  Box,
+  Heading,
+  Text,
+  UnorderedList,
+  ListItem,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+} from "@chakra-ui/react";
 
 const ItineraryCard = ({ itineraries }) => {
   return (
     <>
+    {/* New Card Format */}
+      {/* <Card>
+        <CardHeader>Title</CardHeader>
+        <CardBody>Body</CardBody>
+
+        <CardFooter>Footer</CardFooter>
+      </Card> */}
       {itineraries.map((itinerary, index) => (
         <Box
           key={index}
@@ -15,7 +32,7 @@ const ItineraryCard = ({ itineraries }) => {
           bg="gray"
         >
           <Heading as="h3" size="md" mb="2">
-            {itinerary.destination}
+            {itinerary.city}
           </Heading>
           <Text mb="2">Accommodation: {itinerary.accommodation}</Text>
           <Text as="p" fontWeight="bold" mb="1">
