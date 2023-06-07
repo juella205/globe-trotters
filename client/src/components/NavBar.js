@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon, SettingsIcon } from '@chakra-ui/icons';
 import Login from './Login'; // Import the Login component
+import ItineraryModal from './ItineraryModal';
 
 const Links = ['Home', 'Itineraries'];
 
@@ -35,13 +36,23 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-const Navbar = () => {
+const Navbar = ({onSave}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoginFormOpen, setIsLoginFormOpen] = useState(false); // New state variable to track login form visibility
 
   const handleLoginFormToggle = () => {
     setIsLoginFormOpen(!isLoginFormOpen); // Toggle the value of isLoginFormOpen
   };
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleNewPlan = () => {
+    setIsModalOpen(true);
+  }
+
+  const handleSave = (itnData) => {
+    onSave(itnData);
+  }
+    
 
   return (
     <>
@@ -73,9 +84,15 @@ const Navbar = () => {
               size={'sm'}
               mr={4}
               leftIcon={<AddIcon />}
+              onClick={handleNewPlan}
             >
               New Plan
             </Button>
+            <ItineraryModal 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onSave={handleSave}
+             />
             <Button
               variant={'solid'}
               colorScheme={'teal'}
