@@ -35,27 +35,4 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
       mongoose.connection.close();
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = { User, City, Activity };
