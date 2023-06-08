@@ -33,7 +33,7 @@ function App() {
       </div>
       <Navbar onSave={handleSaveItinerary} />
       <div className="content">
-        <GlobeInterface/>
+        <GlobeInterface />
         {/* isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} ^was in Global Interface */}
         {/* <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalOverlay />
