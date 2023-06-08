@@ -33,8 +33,16 @@ function App() {
       </div>
       <Navbar onSave={handleSaveItinerary} />
       <div className="content">
-        {/* <GlobeInterface /> */}
-        <ItineraryCard itineraries={itineraries} />
+        <GlobeInterface/>
+        {/* isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} ^was in Global Interface */}
+        {/* <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+        <ItineraryModal onSave={handleSaveItinerary} onClose={() => setIsModalOpen(false)}/>
+        </ModalContent>
+        </Modal> */}
+          <ItineraryCard itineraries={itineraries}
+          />
         {/* <Itinerary /> */}
       </div>
     </div>
