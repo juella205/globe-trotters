@@ -13,6 +13,10 @@ const activitySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    // username: {
+    //     type: String,
+    //     required: true,
+    // }
 });
 
 const Activity = mongoose.model('Activity', activitySchema);

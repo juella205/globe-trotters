@@ -4,21 +4,22 @@ import GlobeInterface from "./components/GlobeInterface";
 // import Itinerary from "./components/Itinerary";
 import ItineraryCard from "./components/ItineraryCard";
 import Navbar from "./components/NavBar";
-import { Heading, useColorMode, Modal, ModalOverlay, ModalContent } from "@chakra-ui/react";
+import {
+  Heading,
+  useColorMode,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+} from "@chakra-ui/react";
 import ItineraryModal from "./components/ItineraryModal";
 
 function App() {
   const { colorMode } = useColorMode();
   const [itineraries, setItineraries] = useState([]);
+  
   const handleSaveItinerary = (itineraryData) => {
     setItineraries([...itineraries, itineraryData]);
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleNewPlan = () => {
-    setIsModalOpen(true);
-};
 
   return (
     <div className="app">
@@ -30,17 +31,10 @@ function App() {
           Globe Trotters
         </Heading>
       </div>
-      <Navbar handleNewPlan={handleNewPlan}/>
+      <Navbar onSave={handleSaveItinerary} />
       <div className="content">
-        <GlobeInterface />
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalOverlay />
-        <ModalContent>
-        <ItineraryModal onSave={handleSaveItinerary} onClose={() => setIsModalOpen(false)}/>
-        </ModalContent>
-        </Modal>
-          <ItineraryCard itineraries={itineraries}
-          />
+        {/* <GlobeInterface /> */}
+        <ItineraryCard itineraries={itineraries} />
         {/* <Itinerary /> */}
       </div>
     </div>
