@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -15,24 +15,40 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 
-const ItineraryModal = ({ onSave, isOpen, onClose }) => {
-  const [city, setCity] = useState('');
+const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }, props) => {
+  // const [city, setCity] = useState('');
   const [accommodation, setAccommodation] = useState('');
   const [activities, setActivities] = useState('');
+  
+  // useEffect(() => {
+  //   // const storedCity = localStorage.getItem('selectedCity');
+  //   // if (storedCity) {
+  //   //   setCity(storedCity);
+  //   // }
+  //   setCity(storedCity);
+  // }, []);
+
+  // useEffect(() => {
+  //   const storedCity = localStorage.getItem('selectedCity');
+  //   if (storedCity) {
+  //     setCity(storedCity);
+  //   }
+  // }, [city]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const itineraryData = {
-      city,
+      city: selectedCity,
       accommodation,
       activities: activities.split('\n'), // Split activities by new line to create a list
     };
     onSave(itineraryData);
-    setCity('');
+    //setCity('');
     setAccommodation('');
     setActivities('');
   };
 
+  
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -43,12 +59,12 @@ const ItineraryModal = ({ onSave, isOpen, onClose }) => {
           <ModalBody>
             <VStack spacing={4}>
               <FormControl>
-                <FormLabel>City</FormLabel>
-                <Input
+                <FormLabel>{selectedCity}</FormLabel>
+                {/* <Input
                   type="text"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                />
+                /> */}
               </FormControl>
               <FormControl>
                 <FormLabel>Accommodation</FormLabel>
