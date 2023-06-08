@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, useBreakpointValue } from '@chakra-ui/react';
 import Globe from 'react-globe.gl';
-const data = require('../testData/test.js')
 import geodata from '../testData/test.json'
 import ItineraryModal from './ItineraryModal';
 console.log(geodata);
