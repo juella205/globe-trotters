@@ -38,9 +38,9 @@ const GlobeInterface = () => {
   //   setIsModalOpen(true);
   // } 
 
-  const handleSave = (itineraryData, setItineraries) => {
-    console.log('Save itinerary:', itineraryData);
-    const updatedItineraries = [...itineraries, itineraryData];
+  const handleSaveItinerary = (itnData) => {
+    console.log('Save itinerary:', itnData);
+    const updatedItineraries = [...itineraries, itnData];
     setItineraries(updatedItineraries);
     setIsModalOpen(false);
   };
@@ -66,8 +66,7 @@ const GlobeInterface = () => {
         onLabelClick = {(label, event, { lat, lng, altitude }) => handleCityClick(label, event, { lat, lng, altitude })}
       />
     </Box>
-    {/* <ItineraryModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/> */}
-    <ItineraryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSave} selectedCity={selectedCity}/>
+    <ItineraryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSaveItinerary} selectedCity={selectedCity}/>
     </>
   );
 };
