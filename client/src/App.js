@@ -21,6 +21,11 @@ function App() {
     setItineraries([...itineraries, itineraryData]);
   };
 
+  const handleEdit = (index) => {
+    // Handle edit functionality here
+    console.log("Edit itinerary at index:", index);
+  };
+
   return (
     <div className="app">
       <div className="heading-container">
@@ -34,15 +39,7 @@ function App() {
       <Navbar onSave={handleSaveItinerary} />
       <div className="content">
         <GlobeInterface />
-        {/* isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} ^was in Global Interface */}
-        {/* <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalOverlay />
-        <ModalContent>
-        <ItineraryModal onSave={handleSaveItinerary} onClose={() => setIsModalOpen(false)}/>
-        </ModalContent>
-        </Modal> */}
-          <ItineraryCard itineraries={itineraries}
-          />
+          <ItineraryCard itineraries={itineraries} onEdit={handleEdit}/>
         {/* <Itinerary /> */}
       </div>
     </div>
