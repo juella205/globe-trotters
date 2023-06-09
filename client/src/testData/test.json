@@ -69,10 +69,6 @@
         { "type": "Feature", "properties": { "NAME_EN": "Mumbai", "LATITUDE": "19.0761", "LONGITUDE": "72.8775"}},
         { "type": "Feature", "properties": { "NAME_EN": "Manila", "LATITUDE": "14.5958", "LONGITUDE": "120.9772"}},
         { "type": "Feature", "properties": { "NAME_EN": "Shanghai", "LATITUDE": "31.1667", "LONGITUDE": "121.4667"}},
-
-
-
-
         { "type": "Feature", "properties": { "NAME_EN": "Sao Paulo", "LATITUDE": "-23.5500", "LONGITUDE": "-46.6333"}},
         { "type": "Feature", "properties": { "NAME_EN": "Seoul", "LATITUDE": "37.5600", "LONGITUDE": "126.9900"}},
         { "type": "Feature", "properties": { "NAME_EN": "Mexico City", "LATITUDE": "19.4333", "LONGITUDE": "-99.1333"}},
@@ -80,14 +76,51 @@
         { "type": "Feature", "properties": { "NAME_EN": "Dhaka", "LATITUDE": "23.7639", "LONGITUDE": "90.3889"}},
         { "type": "Feature", "properties": { "NAME_EN": "Beijing", "LATITUDE": "39.9040", "LONGITUDE": "116.4075"}},
         { "type": "Feature", "properties": { "NAME_EN": "Kolkata", "LATITUDE": "22.5675", "LONGITUDE": "88.3700"}},
- 
-
-
         { "type": "Feature", "properties": { "NAME_EN": "Bangkok", "LATITUDE": "13.7525", "LONGITUDE": "100.4942"}},
         { "type": "Feature", "properties": { "NAME_EN": "Shenzhen", "LATITUDE": "22.5350", "LONGITUDE": "114.0540"}},
         { "type": "Feature", "properties": { "NAME_EN": "Moscow", "LATITUDE": "55.7558", "LONGITUDE": "37.6178"}},
         { "type": "Feature", "properties": { "NAME_EN": "Buenos Aires", "LATITUDE": "-34.5997", "LONGITUDE": "-58.3819"}},
-        { "type": "Feature", "properties": { "NAME_EN": "Lagos", "LATITUDE": "6.4550", "LONGITUDE": "3.3841"}}
+        { "type": "Feature", "properties": { "NAME_EN": "Lagos", "LATITUDE": "6.4550", "LONGITUDE": "3.3841"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Istanbul", "LATITUDE": "41.0136", "LONGITUDE": "28.9550"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Karachi", "LATITUDE": "24.8600", "LONGITUDE": "67.0100"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Bangalore", "LATITUDE": "12.9789", "LONGITUDE": "77.5917"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Ho Chi Minh City", "LATITUDE": "10.7756", "LONGITUDE": "106.7019"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Osaka", "LATITUDE": "34.6939", "LONGITUDE": "135.5022"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Chengdu", "LATITUDE": "30.6600", "LONGITUDE": "104.0633"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Tehran", "LATITUDE": "35.6892", "LONGITUDE": "51.3889"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Rio de Janeiro", "LATITUDE": "-22.9111", "LONGITUDE": "-43.2056"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Chennai", "LATITUDE": "13.0825", "LONGITUDE": "80.2750"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Xi'an", "LATITUDE": "34.2667", "LONGITUDE": "108.9000"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Lahore", "LATITUDE": "31.5497", "LONGITUDE": "74.3436"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Chongqing", "LATITUDE": "29.5500", "LONGITUDE": "106.5069"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Baoding", "LATITUDE": "38.8671", "LONGITUDE": "115.4845"}},
+        { "type": "Feature", "properties": { "NAME_EN": "London", "LATITUDE": "51.5072", "LONGITUDE": "-0.1275"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Paris", "LATITUDE": "48.8567", "LONGITUDE": "2.3522"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Linyi", "LATITUDE": "35.1041", "LONGITUDE": "118.3502"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Dongguan", "LATITUDE": "23.0475", "LONGITUDE": "113.7493"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Hyderabad", "LATITUDE": "17.3850", "LONGITUDE": "78.4867"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Tianjin", "LATITUDE": "39.1467", "LONGITUDE": "117.2056"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Lima", "LATITUDE": "-12.0600", "LONGITUDE": "-77.0375"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Wuhan", "LATITUDE": "30.5872", "LONGITUDE": "114.2881"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Nanyang", "LATITUDE": "32.9987", "LONGITUDE": "112.5292"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Hangzhou", "LATITUDE": "30.2500", "LONGITUDE": "120.1675"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Foshan", "LATITUDE": "23.0292", "LONGITUDE": "113.1056"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Nagoya", "LATITUDE": "35.1833", "LONGITUDE": "136.9000"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Taipei", "LATITUDE": "25.0375", "LONGITUDE": "121.5625"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Tongshan", "LATITUDE": "34.2610", "LONGITUDE": "117.1859"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Luanda", "LATITUDE": "-8.8383", "LONGITUDE": "13.2344"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Zhoukou", "LATITUDE": "33.6250", "LONGITUDE": "114.6418"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Ganzhou", "LATITUDE": "25.8292", "LONGITUDE": "114.9336"}},
+
+
+
+        { "type": "Feature", "properties": { "NAME_EN": "Ganzhou", "LATITUDE": "25.8292", "LONGITUDE": "114.9336"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Ganzhou", "LATITUDE": "25.8292", "LONGITUDE": "114.9336"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Ganzhou", "LATITUDE": "25.8292", "LONGITUDE": "114.9336"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Ganzhou", "LATITUDE": "25.8292", "LONGITUDE": "114.9336"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Ganzhou", "LATITUDE": "25.8292", "LONGITUDE": "114.9336"}},
+        { "type": "Feature", "properties": { "NAME_EN": "Ganzhou", "LATITUDE": "25.8292", "LONGITUDE": "114.9336"}}
+
 
       
     ]   
