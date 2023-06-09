@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// ItineraryModal.js
+import React, { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -13,24 +14,28 @@ import {
   Input,
   VStack,
   Textarea,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { useQuery, useMutation } from '@apollo/client';
-import { ADD_CITY, CREATE_ACTIVITY } from '../utils/mutations';
-// import {} from '../utils/queries';
-import auth from '../utils/auth';
+const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
+  const [activities, setActivities] = useState([]);
 
-const username = localStorage.getItem('username')
+  const handleAddActivity = () => {
+    setActivities([...activities, { title: "", body: "" }]);
+  };
 
-const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }, props) => {
-  // const [city, setCity] = useState('');
-  const [activityTitle, setActivityTitle] = useState('');
-  const [activityDescription, setActivityDescription] = useState('');
+  const handleActivityTitleEdit = (index, e) => {
+    const updatedActivities = [...activities];
+    updatedActivities[index].title = e.target.value;
+    setActivities(updatedActivities);
+  };
 
-  const [addCityMutation] = useMutation(ADD_CITY);
-  const [createActivityMutation] = useMutation(CREATE_ACTIVITY);
-  // making it a async function
-  const handleSubmit = async (e) => {
+  const handleActivityBodyEdit = (index, e) => {
+    const updatedActivities = [...activities];
+    updatedActivities[index].body = e.target.value;
+    setActivities(updatedActivities);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     const itineraryData = {
       activityTitle,
@@ -85,43 +90,43 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }, props) => {
     setActivityDescription('');
   };
 
-  
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Create New Itinerary</ModalHeader>
         <ModalCloseButton />
-        <form>
+        <form onSubmit={handleSubmit}>
           <ModalBody>
             <VStack spacing={4}>
               <FormControl>
                 <FormLabel>{selectedCity}</FormLabel>
-                {/* <Input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                /> */}
               </FormControl>
-              <FormControl>
-                <FormLabel>Activity Title</FormLabel>
-                <Input
-                  type="text"
-                  value={accommodation}
-                  onChange={(e) => setActivityTitle(e.target.value)}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Activity Description</FormLabel>
-                <Textarea
-                  value={activities}
-                  onChange={(e) => setActivityDescription(e.target.value)}
-                />
-              </FormControl>
+              {activities.map((activity, index) => (
+                <React.Fragment key={index}>
+                  <FormControl>
+                    <Input
+                      value={activity.title}
+                      onChange={(e) => handleActivityTitleEdit(index, e)}
+                      placeholder="Activity Title"
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <Textarea
+                      value={activity.body}
+                      onChange={(e) => handleActivityBodyEdit(index, e)}
+                      placeholder="Activity Body"
+                    />
+                  </FormControl>
+                </React.Fragment>
+              ))}
+              <Button colorScheme="teal" size="sm" onClick={handleAddActivity}>
+                Add Activity
+              </Button>
             </VStack>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" colorScheme="blue" onClick={handleSubmit}>
+            <Button type="submit" colorScheme="blue">
               Save
             </Button>
           </ModalFooter>
