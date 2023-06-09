@@ -1,73 +1,3 @@
-// import React from "react";
-// import {
-//   Box,
-//   Heading,
-//   Text,
-//   UnorderedList,
-//   ListItem,
-//   Button,
-//   Card,
-//   CardHeader,
-//   CardBody,
-//   CardFooter,
-// } from "@chakra-ui/react";
-
-// const ItineraryCard = ({ itineraries, onEdit }) => {
-//   const handleEditClick = (index) => {
-//     setEditIndex(index);
-//     setEditedActivity(itineraries[index].activities.join(", "));
-//   };
-
-//   const handleSaveClick = (index) => {
-//     const editedActivities = editedActivity.split(",").map((activity) => activity.trim());
-//     const updatedItineraries = [...itineraries];
-//     updatedItineraries[index].activities = editedActivities;
-//     onEdit(updatedItineraries);
-//     setEditIndex(-1);
-//   };
-
-//   return (
-//     <>
-//     {/* New Card Format */}
-//       {/* <Card>
-//         <CardHeader>Title</CardHeader>
-//         <CardBody>Body</CardBody>
-
-//         <CardFooter>Footer</CardFooter>
-//       </Card> */}
-//       {itineraries.map((itinerary, index) => (
-//         <Box
-//           key={index}
-//           borderWidth="1px"
-//           borderRadius="lg"
-//           p="4"
-//           mb="4"
-//           boxShadow="md"
-//           bg="gray"
-//         >
-//           <Heading as="h3" size="md" mb="2">
-//             {itinerary.city}
-//           </Heading>
-//           <Text mb="2">Accommodation: {itinerary.accommodation}</Text>
-//           <Text as="p" fontWeight="bold" mb="1">
-//             Activities:
-//           </Text>
-//           <UnorderedList pl="4">
-//             {itinerary.activities.map((activity, activityIndex) => (
-//               <ListItem key={activityIndex}>{activity}</ListItem>
-//             ))}
-//           </UnorderedList>
-//           <Button onClick={() => handleEdit(index)} colorScheme="blue">
-//             Edit
-//           </Button>
-//         </Box>
-//       ))}
-//     </>
-//   );
-// };
-
-// export default ItineraryCard;
-
 import React, { useState } from "react";
 import {
   Box,
@@ -92,9 +22,15 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
     setEditedActivities(itineraries[index].activities);
   };
 
-  const handleActivityEdit = (activityIndex, e) => {
+  const handleActivityTitleEdit = (activityIndex, e) => {
     const updatedActivities = [...editedActivities];
-    updatedActivities[activityIndex] = e.target.value;
+    updatedActivities[activityIndex].title = e.target.value;
+    setEditedActivities(updatedActivities);
+  };
+
+  const handleActivityBodyEdit = (activityIndex, e) => {
+    const updatedActivities = [...editedActivities];
+    updatedActivities[activityIndex].body = e.target.value;
     setEditedActivities(updatedActivities);
   };
 
@@ -105,6 +41,12 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
     setEditIndex(-1);
   };
 
+  const handleAddActivity = () => {
+    const updatedActivities = [...editedActivities];
+    updatedActivities.push({ title: "", body: "" });
+    setEditedActivities(updatedActivities);
+  };
+
   return (
     <>
       {itineraries.map((itinerary, index) => (
@@ -113,22 +55,29 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
             {itinerary.city}
           </CardHeader>
           <CardBody>
-            <Text mb="2">Accommodation: {itinerary.accommodation}</Text>
             {index === editIndex ? (
               <>
-                <Text as="p" fontWeight="bold" mb="1">
-                  Activities:
-                </Text>
-                {itinerary.activities.map((activity, activityIndex) => (
-                  <Input
-                    key={activityIndex}
-                    value={editedActivities[activityIndex]}
-                    onChange={(e) => handleActivityEdit(activityIndex, e)}
-                    mb="2"
-                  />
+                {editedActivities.map((activity, activityIndex) => (
+                  <Box key={activityIndex} mb="4">
+                    <Input
+                      value={activity.title}
+                      onChange={(e) => handleActivityTitleEdit(activityIndex, e)}
+                      placeholder="Activity Title"
+                      mb="2"
+                    />
+                    <Input
+                      value={activity.body}
+                      onChange={(e) => handleActivityBodyEdit(activityIndex, e)}
+                      placeholder="Activity Body"
+                      mb="2"
+                    />
+                  </Box>
                 ))}
                 <Button colorScheme="blue" size="sm" onClick={() => handleSaveClick(index)}>
                   Save
+                </Button>
+                <Button colorScheme="green" size="sm" mt="2" onClick={handleAddActivity}>
+                  Add Activity
                 </Button>
               </>
             ) : (
@@ -138,7 +87,10 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
                 </Text>
                 <UnorderedList pl="4">
                   {itinerary.activities.map((activity, activityIndex) => (
-                    <ListItem key={activityIndex}>{activity}</ListItem>
+                    <ListItem key={activityIndex}>
+                      <Text fontWeight="bold">{activity.title}</Text>
+                      <Text>{activity.body}</Text>
+                    </ListItem>
                   ))}
                 </UnorderedList>
                 <Button colorScheme="teal" size="sm" mt="2" onClick={() => handleEditClick(index)}>
@@ -154,4 +106,3 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
 };
 
 export default ItineraryCard;
-
