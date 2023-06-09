@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -15,18 +15,23 @@ import {
   Alert,
   FormControl,
   FormLabel,
-  FormHelperText
+  FormHelperText,
 } from "@chakra-ui/react";
-import { useMutation } from '@apollo/client';
-import {LOGIN_USER} from '../utils/mutations';
-import Auth from '../utils/auth';
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER, CREATE_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 const Login = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const [login, { error }] = useMutation(LOGIN_USER);
+  const [createUser] = useMutation(CREATE_USER);
 
   useEffect(() => {
     if (error) {
@@ -41,7 +46,7 @@ const Login = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -52,7 +57,7 @@ const Login = () => {
 
     try {
       const { data } = await login({
-        variables: { ...userFormData },
+        variables: { email: userFormData.email, password: userFormData.password },
       });
 
       console.log(data);
@@ -63,36 +68,61 @@ const Login = () => {
 
     // clear form values
     setUserFormData({
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
   };
 
-const pointsOfInterest = [
-  {
-    name: "Boat on River",
-    url: "https://images.unsplash.com/photo-1683964012110-97053d85cdd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=627&q=80",
-  },
-  {
-    name: "Asian Architecture",
-    url: "https://images.unsplash.com/photo-1617018681623-987895ca1c99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-  },
-  {
-    name: "Dubai",
-    url: "https://images.unsplash.com/photo-1528702748617-c64d49f918af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-  },
-  {
-    name: "Streets of Tokyo",
-    url: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-  },
-  {
-    name: "Ski Lift",
-    url: "https://images.unsplash.com/photo-1546706442-373624e9c90b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-  },
-];
+  const handleSignUpSubmit = async (event) => {
+    event.preventDefault();
 
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
- 
+    try {
+      const { data } = await createUser({
+        variables: { email: userFormData.email, password: userFormData.password, username: userFormData.username },
+      });
+
+      console.log(data);
+      Auth.login(data.createUser.token);
+    } catch (e) {
+      console.error(e);
+    }
+
+    // clear form values
+    setUserFormData({
+      email: "",
+      password: "",
+    });
+  };
+
+  const pointsOfInterest = [
+    {
+      name: "Boat on River",
+      url: "https://images.unsplash.com/photo-1683964012110-97053d85cdd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=627&q=80",
+    },
+    {
+      name: "Asian Architecture",
+      url: "https://images.unsplash.com/photo-1617018681623-987895ca1c99?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    },
+    {
+      name: "Dubai",
+      url: "https://images.unsplash.com/photo-1528702748617-c64d49f918af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    },
+    {
+      name: "Streets of Tokyo",
+      url: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+    },
+    {
+      name: "Ski Lift",
+      url: "https://images.unsplash.com/photo-1546706442-373624e9c90b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    },
+  ];
+
   return (
     <Box position="relative">
       <Container
@@ -201,79 +231,105 @@ const pointsOfInterest = [
               helps busy vacationers get the most out of their time.
             </Text>
           </Stack>
-          <Box as="form" mt={10} onSubmit={handleFormSubmit}>
-      <Alert
-        status="error"
-        variant="subtle"
-        colorScheme="red"
-        borderRadius="md"
-        display={showAlert ? 'block' : 'none'}
-        mb={4}
-      >
-        Something went wrong with your login credentials!
-      </Alert>
-      <Stack spacing={4}>
-        <FormControl>
-          <FormLabel>Email</FormLabel>
-          <Input
-            type="text"
-            placeholder="Your email"
-            bg="gray.100"
-            border={0}
-            color="gray.500"
-            _placeholder={{
-              color: 'gray.500',
-            }}
-            name="email"
-            onChange={handleInputChange}
-            value={userFormData.email}
-            isRequired
-          />
-          <FormHelperText>Email is required!</FormHelperText>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Password</FormLabel>
-          <Input
-            type="password"
-            placeholder="Your password"
-            bg="gray.100"
-            border={0}
-            color="gray.500"
-            _placeholder={{
-              color: 'gray.500',
-            }}
-            name="password"
-            onChange={handleInputChange}
-            value={userFormData.password}
-            isRequired
-          />
-          <FormHelperText>Password is required!</FormHelperText>
-        </FormControl>
-        <Button fontFamily="heading" bg="gray.200" color="gray.800" type="submit">
-          Sign Up
-        </Button>
-      </Stack>
-      <Button
-        fontFamily="heading"
-        mt={8}
-        w="full"
-        bgGradient="linear(to-r, blue.400,green.200)"
-        color="white"
-        _hover={{
-          bgGradient: 'linear(to-r, blue.400,yellow.300)',
-          boxShadow: 'xl',
-        }}
-        type="submit"
-      >
-        Login
-      </Button>
-    </Box>
+          <Box as="form" mt={10} onSubmit={handleLoginSubmit}>
+            <Alert
+              status="error"
+              variant="subtle"
+              colorScheme="red"
+              borderRadius="md"
+              display={showAlert ? "block" : "none"}
+              mb={4}
+            >
+              Something went wrong with your login credentials!
+            </Alert>
+
+            <Stack spacing={4}>
+              <FormControl>
+                <FormLabel>Username</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Your username"
+                  bg="gray.100"
+                  border={0}
+                  color="gray.500"
+                  _placeholder={{
+                    color: "gray.500",
+                  }}
+                  name="username"
+                  onChange={handleInputChange}
+                  value={userFormData.username}
+                  isRequired
+                />
+                <FormHelperText>Username is required!</FormHelperText>
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Your email"
+                  bg="gray.100"
+                  border={0}
+                  color="gray.500"
+                  _placeholder={{
+                    color: "gray.500",
+                  }}
+                  name="email"
+                  onChange={handleInputChange}
+                  value={userFormData.email}
+                  isRequired
+                />
+                <FormHelperText>Email is required!</FormHelperText>
+              </FormControl>
+              <FormControl>
+                <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  placeholder="Your password"
+                  bg="gray.100"
+                  border={0}
+                  color="gray.500"
+                  _placeholder={{
+                    color: "gray.500",
+                  }}
+                  name="password"
+                  onChange={handleInputChange}
+                  value={userFormData.password}
+                  isRequired
+                />
+                <FormHelperText>Password is required!</FormHelperText>
+              </FormControl>
+              <Button
+                fontFamily="heading"
+                bg="gray.200"
+                color="gray.800"
+                type="submit"
+                onClick={handleSignUpSubmit}
+              >
+                Sign Up
+              </Button>
+            </Stack>
+            <Button
+              fontFamily="heading"
+              mt={8}
+              w="full"
+              bgGradient="linear(to-r, blue.400,green.200)"
+              color="white"
+              _hover={{
+                bgGradient: "linear(to-r, blue.400,yellow.300)",
+                boxShadow: "xl",
+              }}
+              type="submit"
+            >
+              Login
+            </Button>
+          </Box>
         </Stack>
       </Container>
       <Blur />
     </Box>
   );
-}
+};
 
 function Blur() {
   return (
