@@ -15,37 +15,74 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 
+import { useQuery, useMutation } from '@apollo/client';
+import { ADD_CITY, CREATE_ACTIVITY } from '../utils/mutations';
+// import {} from '../utils/queries';
+import auth from '../utils/auth';
+
+const username = localStorage.getItem('username')
+
 const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }, props) => {
   // const [city, setCity] = useState('');
-  const [accommodation, setAccommodation] = useState('');
-  const [activities, setActivities] = useState('');
-  
-  // useEffect(() => {
-  //   // const storedCity = localStorage.getItem('selectedCity');
-  //   // if (storedCity) {
-  //   //   setCity(storedCity);
-  //   // }
-  //   setCity(storedCity);
-  // }, []);
+  const [activityTitle, setActivityTitle] = useState('');
+  const [activityDescription, setActivityDescription] = useState('');
 
-  // useEffect(() => {
-  //   const storedCity = localStorage.getItem('selectedCity');
-  //   if (storedCity) {
-  //     setCity(storedCity);
-  //   }
-  // }, [city]);
-
-  const handleSubmit = (e) => {
+  const [addCityMutation] = useMutation(ADD_CITY);
+  const [createActivityMutation] = useMutation(CREATE_ACTIVITY);
+  // making it a async function
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const itineraryData = {
-      city: selectedCity,
-      accommodation,
-      activities: activities.split('\n'), // Split activities by new line to create a list
+      activityTitle,
+      activityDescription,
+      selectedCity,
+      username
     };
-    onSave(itineraryData);
-    //setCity('');
-    setAccommodation('');
-    setActivities('');
+      // checking if the city exists
+    try {
+      const { data } = await client.query({
+        query: GET_CITY_QUERY,
+        variables: { cityName: selectedCity }
+      });
+
+      let city;
+      // checks If it already exists, then creates the city if it doesnt exist
+      if(data.city) {
+        city = data.city;
+      } else {
+        const { data: { addCity } } = await addCityMutation({
+          variables: { cityName: selectedCity, username }
+        });
+        city = addCity;
+      }
+
+      // Create the activity using the city ID 
+      await createActivityMutation({
+        variables: {
+          title: itineraryData.activityTitle,
+          description: itineraryData.activityDescription,
+          cityId: city._id,
+          username: itineraryData,username
+        }
+      });
+      // checking to see if it works
+      console.log("Activity created successfully!");
+    } catch (error) {
+      console.error("Error creating activity", error);
+    }
+      
+
+    
+
+
+
+    // onSave((itineraryData) => {
+      // we need to check if the city exists
+      // if city does not exist, create the city first
+      // we need to pass itineraryData as a variable to create activity
+    // });
+    setActivityTitle('');
+    setActivityDescription('');
   };
 
   
@@ -67,18 +104,18 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }, props) => {
                 /> */}
               </FormControl>
               <FormControl>
-                <FormLabel>Accommodation</FormLabel>
+                <FormLabel>Activity Title</FormLabel>
                 <Input
                   type="text"
                   value={accommodation}
-                  onChange={(e) => setAccommodation(e.target.value)}
+                  onChange={(e) => setActivityTitle(e.target.value)}
                 />
               </FormControl>
               <FormControl>
-                <FormLabel>Activities (One per line)</FormLabel>
+                <FormLabel>Activity Description</FormLabel>
                 <Textarea
                   value={activities}
-                  onChange={(e) => setActivities(e.target.value)}
+                  onChange={(e) => setActivityDescription(e.target.value)}
                 />
               </FormControl>
             </VStack>
