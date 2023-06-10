@@ -31,6 +31,13 @@ const typeDefs = gql`
     user: User
   }
 
+  input ActivityInput {
+    title: String!
+    description: String!
+    city: String!
+    username: String!
+  }
+
   type Query {
     users: [User]
     user(username: String!): User
@@ -42,7 +49,7 @@ const typeDefs = gql`
   type Mutation {
     addCity(cityName: String!, username: String!): City
     removeCity(cityId: ID!): City
-    createActivity(title: String!, description: String!, city: String!, username: String!): Activity
+    createActivity(activities: [ActivityInput!]!): [Activity!]!
     updateActivity(id: ID!, title: String, description: String): Activity
     deleteActivity(id: ID!): Activity
     createUser(username: String!, email: String!, password: String!): User

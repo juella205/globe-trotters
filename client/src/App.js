@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Globe from "react-globe.gl";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import GlobeInterface from "./components/GlobeInterface";
-// import Itinerary from "./components/Itinerary";
+// Imported Modal
+import ItineraryModal from "./components/ItineraryModal";
 import ItineraryCard from "./components/ItineraryCard";
 import Navbar from "./components/NavBar";
 import {
@@ -11,12 +19,12 @@ import {
   ModalOverlay,
   ModalContent,
 } from "@chakra-ui/react";
-import ItineraryModal from "./components/ItineraryModal";
 
 function App() {
   const { colorMode } = useColorMode();
   const [itineraries, setItineraries] = useState([]);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleSaveItinerary = (itineraryData) => {
     setItineraries([...itineraries, itineraryData]);
   };
@@ -26,7 +34,20 @@ function App() {
     console.log("Edit itinerary at index:", index);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
+
   return (
+    <ApolloProvider client={client}>
     <div className="app">
       <div className="heading-container">
         <Heading
@@ -43,6 +64,7 @@ function App() {
         {/* <Itinerary /> */}
       </div>
     </div>
+    </ApolloProvider>
   );
 }
 

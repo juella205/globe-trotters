@@ -15,9 +15,17 @@ import {
   VStack,
   Textarea,
 } from "@chakra-ui/react";
+// Importing mutations from the apollo client and create activity from mutations.js
+import { useMutation, useQuery } from '@apollo/client';
+import { CREATE_ACTIVITY, ADD_CITY } from '../utils/mutations';
+import { QUERY_CITIES } from "../utils/queries";
+const username = localStorage.getItem('username');
 
 const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
   const [activities, setActivities] = useState([]);
+// using hook to define create activity function and its mutation
+  const [createActivity] = useMutation(CREATE_ACTIVITY);
+  const [addCity] = useMutation(ADD_CITY);
 
   const handleAddActivity = () => {
     setActivities([...activities, { title: "", body: "" }]);
@@ -35,15 +43,22 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
     setActivities(updatedActivities);
   };
 
-  const handleSubmit = (e) => {
+  const {loading, data} = useQuery(QUERY_CITIES);
+    var userCities = data?.cities || [];
+    
+  // in the function I made it map over the activities array and created a array of activity data objects including the neccessary variables for the createActivity mutation
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const itineraryData = {
+
+    const activityData = activities.map((activity) => ({
+      title: activity.title,
+      description: activity.body,
       city: selectedCity,
-      activities,
-    };
-    onSave(itineraryData);
-    setActivities([]);
+      username: username
+    }));
+    createActivity({variables: { activities: activityData }});
   };
+  
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
