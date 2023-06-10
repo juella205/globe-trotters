@@ -52,12 +52,15 @@ mutation RemoveCity($cityId: ID!) {
 `;
 
 export const CREATE_ACTIVITY = gql`
-mutation CreateActivity($activities: [ActivityInput!]!) {
-    createActivity(activities: $activities) {
+  mutation CreateActivity($title: String!, $description: String!, $city: ID!, $username: String!) {
+    createActivity(title: $title, description: $description, city: $city, username: $username) {
       _id
-      city
-      description
       title
+      description
+      city {
+        _id
+        cityName
+      }
     }
   }
 `;
