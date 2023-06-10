@@ -19,7 +19,7 @@ import {
   ModalOverlay,
   ModalContent,
 } from "@chakra-ui/react";
-import ItineraryModal from "./components/ItineraryModal";
+
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -84,7 +84,7 @@ function App() {
           onSave={handleSaveItinerary}
           isOpen={isModalOpen}
           onClose={handleCloseModal}
-          selectedCity={/* pass the selected city value here */}
+          selectedCity={selectedCity}
         />
         <div className="content">
           <GlobeInterface />
