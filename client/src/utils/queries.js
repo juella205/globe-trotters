@@ -1,8 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_USER = gql`
-  query GetUser($username: String!)
-{
+  query GetUser($username: String!){
     user(username: $username) {
         _id
         username
@@ -18,12 +17,10 @@ export const QUERY_USER = gql`
           }
         }
       }
-    }
-}`
+    }`
 
 export const QUERY_CITIES = gql`
-  query GetCities($username: String)
-{
+  query GetCities($username: String){
     cities(username: $username) {
         _id
         activities {
@@ -34,12 +31,10 @@ export const QUERY_CITIES = gql`
         }
         cityName
       }
-    }
-}`
+    }`
 
 export const QUERY_CITY = gql`
-  query GetCity($cityId: ID!)
-{
+  query GetCity($cityId: ID!){
     city(cityId: $cityId) {
         _id
         cityName
@@ -53,8 +48,7 @@ export const QUERY_CITY = gql`
 }`
 
 export const QUERY_ACTIVITIES = gql`
-  query GetActivities($username: String!, $city: String!)
-{
+  query GetActivities($username: String!, $city: String!){
     activities(username: $username, city: $city) {
         _id
         description
