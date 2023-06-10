@@ -24,14 +24,14 @@ const GlobeInterface = () => {
 
   const handleCityClick = (label, event, { lat, lng, altitude }) => {
     setIsModalOpen(true);
-    console.log('Selected city:', label.properties.NAME);
+    console.log('Selected city:', label.properties.NAME_EN);
 
     {/* setIsModalOpen(!isModalOpen) */}
     // Modal needs to be passed in to the return statement
     // You also need to pass in the props as well. 
     // onSave={handleSaveItinerary} onClose={() => setIsModalOpen(false)}
-    setSelectedCity(label.properties.NAME)
-    localStorage.setItem('selectedCity', label.properties.NAME);
+    setSelectedCity(label.properties.NAME_EN)
+    localStorage.setItem('selectedCity', label.properties.NAME_EN);
   };
 
   // const handleNewPlan = () => {
@@ -57,8 +57,8 @@ const GlobeInterface = () => {
         labelLat={(d) => d.properties.LATITUDE}
         labelLng={(d) => d.properties.LONGITUDE}
         labelText={(d) => d.properties.NAME_EN}
-        labelSize={0.5}
-        labelDotRadius={0.5}
+        labelSize={0.3}
+        labelDotRadius={0.3}
         labelColor={() => 'rgba(255, 165, 0, 0.75)'}
         labelResolution={2}
         onClickLabel={handleCityClick}

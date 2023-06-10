@@ -25,12 +25,7 @@ const userSchema = new Schema({
       ref: 'City',
     },
   ],
-  activities: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Activity',
-    },
-  ],
+  
 });
 
 // set up pre-save middleware to create password

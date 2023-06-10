@@ -19,7 +19,7 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
 
   const handleEditClick = (index) => {
     setEditIndex(index);
-    setEditedActivities(itineraries[index].activities);
+    setEditedActivities([...itineraries[index].activities]);
   };
 
   const handleActivityTitleEdit = (activityIndex, e) => {
@@ -42,9 +42,7 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
   };
 
   const handleAddActivity = () => {
-    const updatedActivities = [...editedActivities];
-    updatedActivities.push({ title: "", body: "" });
-    setEditedActivities(updatedActivities);
+    setEditedActivities([...editedActivities, { title: "", body: "" }]);
   };
 
   return (
