@@ -15,9 +15,14 @@ import {
   VStack,
   Textarea,
 } from "@chakra-ui/react";
+// Importing mutations from the apollo client and create activity from mutations.js
+import { useMutation } from 'apollo/client';
+import { CREATE_ACTIVITY } from '../utils/mutations';
 
 const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
   const [activities, setActivities] = useState([]);
+// using hook to define create activity function and its mutation
+  const [createActivity] = useMutation(CREATE_ACTIVITY);
 
   const handleAddActivity = () => {
     setActivities([...activities, { title: "", body: "" }]);
@@ -34,61 +39,27 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
     updatedActivities[index].body = e.target.value;
     setActivities(updatedActivities);
   };
-
-  const handleSubmit = (e) => {
+  // in the function I made it map over the activities array and created a array of activity data objects including the neccessary variables for the createActivity mutation
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const itineraryData = {
-      activityTitle,
-      activityDescription,
-      selectedCity,
-      username
-    };
-      // checking if the city exists
+
+    const activityData = activities.map((activity) => ({
+      title: activity.title,
+      description: activity.body,
+      city: selectedCity,
+      username: localStorage.getItem('username')
+    }));
+    // Using promise.all and await to async and create all the activities, if the creation is successful it then uses onSave which "should" handle the necessary UI updates 
     try {
-      const { data } = await client.query({
-        query: GET_CITY_QUERY,
-        variables: { cityName: selectedCity }
-      });
-
-      let city;
-      // checks If it already exists, then creates the city if it doesnt exist
-      if(data.city) {
-        city = data.city;
-      } else {
-        const { data: { addCity } } = await addCityMutation({
-          variables: { cityName: selectedCity, username }
-        });
-        city = addCity;
-      }
-
-      // Create the activity using the city ID 
-      await createActivityMutation({
-        variables: {
-          title: itineraryData.activityTitle,
-          description: itineraryData.activityDescription,
-          cityId: city._id,
-          username: itineraryData,username
-        }
-      });
-      // checking to see if it works
-      console.log("Activity created successfully!");
+      await Promise.all(activityData.map((data) => createActivity({ variables: data })));
+      onSave();
+      // then clear activities array to reset the form
+      setActivities([]);
     } catch (error) {
-      console.error("Error creating activity", error);
+      console.error("Error creating activities", error);
     }
-      
-
-    
-
-
-
-    // onSave((itineraryData) => {
-      // we need to check if the city exists
-      // if city does not exist, create the city first
-      // we need to pass itineraryData as a variable to create activity
-    // });
-    setActivityTitle('');
-    setActivityDescription('');
   };
+  
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

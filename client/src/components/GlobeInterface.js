@@ -57,8 +57,8 @@ const GlobeInterface = () => {
         labelLat={(d) => d.properties.LATITUDE}
         labelLng={(d) => d.properties.LONGITUDE}
         labelText={(d) => d.properties.NAME_EN}
-        labelSize={0.5}
-        labelDotRadius={0.5}
+        labelSize={0.3}
+        labelDotRadius={0.3}
         labelColor={() => 'rgba(255, 165, 0, 0.75)'}
         labelResolution={2}
         onClickLabel={handleCityClick}

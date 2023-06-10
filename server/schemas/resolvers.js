@@ -19,12 +19,7 @@ const resolvers = {
             return City.findOne({ _id: cityId });
         },
         // Adding resolver for retrieving activities and user activities by ID and throwing error if user is not found
-        // activities: async (_, { username , city }) => {
-        //     const params = {username : { username }, city : { city }  };
-        //     return Activity.find(params).sort({ createdAt: -1 });
-
-        // },
-
+        
         activities: async (_, { username, city }) => {
             const user = await User.findOne({ username }).populate({
               path: 'cities',
@@ -43,10 +38,6 @@ const resolvers = {
             },
           },
       
-    //         return user.cities[0].activities;
-    //       },
-    // },
-
     Mutation: {
         addCity: async (parent, { cityName, username }) => {
             const city = await City.create({ cityName, username });
@@ -62,18 +53,6 @@ const resolvers = {
             return City.findOneAndDelete({ _id: cityId });
         },
         // The resolver for creating a new activity
-        // createActivity: async (_, { title, description, city, username  }) => {
-        //     const activity = await Activity.create({ title, description, city, username });
-            
-        //     await City.findOneAndUpdate(
-        //         { cityName: city  },
-        //         {  username: username },
-        //         { $addToSet: { activities: activity._id } }
-        //     );  
-            
-        //     return activity;
-        // },
-
         // Based on the username the cities field populates
         createActivity: async (_, { title, description, city, username }) => {
             const user = await User.findOne({ username }).populate('cities');
