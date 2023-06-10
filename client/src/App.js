@@ -19,7 +19,6 @@ import {
   ModalOverlay,
   ModalContent,
 } from "@chakra-ui/react";
-import ItineraryModal from "./components/ItineraryModal";
 
 function App() {
   const { colorMode } = useColorMode();
@@ -42,6 +41,10 @@ function App() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
 
   return (
     <ApolloProvider client={client}>

@@ -52,8 +52,8 @@ mutation RemoveCity($cityId: ID!) {
 `;
 
 export const CREATE_ACTIVITY = gql`
-mutation CreateActivity($title: String!, $description: String!, $city: String!, $username: String!) {
-    createActivity(title: $title, description: $description, city: $city, username: $username) {
+mutation CreateActivity($activities: [ActivityInput!]!) {
+    createActivity(activities: $activities) {
       _id
       city
       description
