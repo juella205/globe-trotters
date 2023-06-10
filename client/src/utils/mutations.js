@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_USER = gql`
   mutation CreateUser($username: String!, $email: String!, $password: String!) {
@@ -9,7 +9,18 @@ export const CREATE_USER = gql`
     }
   }
 `;
-
+// final version at the end of tutoring session 
+// export const LOGIN_USER = gql`
+//   mutation Login($email: String!, $password: String!) {
+//     login(email: $email, password: $password) {
+//       token
+//       user {
+//         _id
+//         username
+//       }
+//     }
+//   }
+// `;
 export const LOGIN_USER = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -29,7 +40,7 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_CITY = gql`
-mutation AddCity($cityName: String!, $username: String!) {
+  mutation AddCity($cityName: String!, $username: String!) {
     addCity(cityName: $cityName, username: $username) {
       _id
       cityName
@@ -38,7 +49,7 @@ mutation AddCity($cityName: String!, $username: String!) {
 `;
 
 export const REMOVE_CITY = gql`
-mutation RemoveCity($cityId: ID!) {
+  mutation RemoveCity($cityId: ID!) {
     removeCity(cityId: $cityId) {
       _id
       activities {
@@ -52,7 +63,7 @@ mutation RemoveCity($cityId: ID!) {
 `;
 
 export const CREATE_ACTIVITY = gql`
-mutation CreateActivity($activities: [ActivityInput!]!) {
+  mutation CreateActivity($activities: [ActivityInput!]!) {
     createActivity(activities: $activities) {
       _id
       city
@@ -63,8 +74,16 @@ mutation CreateActivity($activities: [ActivityInput!]!) {
 `;
 
 export const UPDATE_ACTIVITY = gql`
-mutation UpdateActivity($updateActivityId: ID!, $title: String, $description: String) {
-    updateActivity(id: $updateActivityId, title: $title, description: $description) {
+  mutation UpdateActivity(
+    $updateActivityId: ID!
+    $title: String
+    $description: String
+  ) {
+    updateActivity(
+      id: $updateActivityId
+      title: $title
+      description: $description
+    ) {
       city
       description
       title
@@ -74,7 +93,7 @@ mutation UpdateActivity($updateActivityId: ID!, $title: String, $description: St
 `;
 
 export const DELETE_ACTIVITY = gql`
-mutation DeleteActivity($deleteActivityId: ID!) {
+  mutation DeleteActivity($deleteActivityId: ID!) {
     deleteActivity(id: $deleteActivityId) {
       _id
       city

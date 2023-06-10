@@ -87,8 +87,10 @@ const resolvers = {
           },
           // Other mutation resolvers here 
           login: async (parent, args) => {
+            console.log("inside login resolver")
             const user = await User.findOne({email: args.email});
-      
+            // .select("-__v")
+            console.log(user)
             // If there is no user with the email address, return an Authentication error stating sp
             if (!user) {
               throw new AuthenticationError('No user found with this email address');
