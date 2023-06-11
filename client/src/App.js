@@ -62,6 +62,7 @@ useEffect(() =>{
           Globe Trotters
         </Heading>
       </div>
+      <Navbar />
       <div className="content">
         <GlobeInterface 
         cityUpdate = {cityUpdate}
