@@ -20,9 +20,10 @@ const ItineraryCard = ({ onEdit }) => {
   const [editIndex, setEditIndex] = useState(-1);
   const [editedActivities, setEditedActivities] = useState([]);
   const username = localStorage.getItem('username');
-  const {loading, data:itineraries} = useQuery(QUERY_ACTIVITIES, {
+  const {loading, data:itineraries, refetch} = useQuery(QUERY_ACTIVITIES, {
     variables: { username, city:localStorage.getItem("selectedCity") },
   });
+
   const handleEditClick = (index) => {
     setEditIndex(index);
     setEditedActivities([...itineraries[index].activities]);
@@ -40,6 +41,12 @@ const ItineraryCard = ({ onEdit }) => {
     setEditedActivities(updatedActivities);
   };
 
+  const handleDeleteClick = (activityIndex) => {
+    const updatedActivities = [...editedActivities];
+    updatedActivities.splice(activityIndex, 1);
+    setEditedActivities(updatedActivities);
+  };
+
   const handleSaveClick = (index) => {
     const updatedItineraries = [...itineraries];
     updatedItineraries[index].activities = editedActivities;
@@ -53,7 +60,7 @@ const ItineraryCard = ({ onEdit }) => {
 
   return (
     <>
-      {itineraries.activities?.length>0 && !loading &&itineraries?.activities.map((itinerary, index) => (
+      {itineraries?.activities?.length>0 && !loading &&itineraries?.activities.map((itinerary, index) => (
         <Card key={index} mb="4" boxShadow="lg">
           <CardHeader bg="teal.500" color="white" py="2" px="4" fontSize="xl" fontWeight="bold">
             {itinerary.city}
@@ -75,6 +82,9 @@ const ItineraryCard = ({ onEdit }) => {
                       placeholder="Activity Body"
                       mb="2"
                     />
+                    <Button colorScheme="red" size="sm" onClick={() => handleDeleteClick(activityIndex)}>
+                      Delete
+                    </Button>
                   </Box>
                 ))}
                 <Button colorScheme="blue" size="sm" onClick={() => handleSaveClick(index)}>
