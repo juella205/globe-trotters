@@ -24,7 +24,8 @@ import {
 function App() {
   const { colorMode } = useColorMode();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const[cityUpdate,setCityUpdate]=useState(false)
+  const selectedCity = localStorage.getItem("selectedCity");
 
   const handleEdit = (index) => {
     // Handle edit functionality here
@@ -38,10 +39,17 @@ function App() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleCityUpdate = (newCity) => {
+    setCityUpdate(newCity)
+  }
 // const client = new ApolloClient({
 //   uri: '/graphql',
 //   cache: new InMemoryCache(),
 // });
+useEffect(() =>{
+  console.log(localStorage.getItem("selectedCity"))
+}, [selectedCity]);
 
   return (
     // <ApolloProvider client={client}>
@@ -54,8 +62,11 @@ function App() {
           Globe Trotters
         </Heading>
       </div>
+      <Navbar />
       <div className="content">
-        <GlobeInterface />
+        <GlobeInterface 
+        cityUpdate = {cityUpdate}
+        handleCityUpdate={handleCityUpdate}/>
           <ItineraryCard onEdit={handleEdit}/>
       </div>
     </div>

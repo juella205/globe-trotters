@@ -21,7 +21,7 @@ import { CREATE_ACTIVITY, ADD_CITY } from '../utils/mutations';
 import { QUERY_CITIES } from "../utils/queries";
 const username = localStorage.getItem('username');
 
-const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
+const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity, cityUpdate,handleCityUpdate }) => {
   const [activities, setActivities] = useState([]);
 // using hook to define create activity function and its mutation
   const [createActivity] = useMutation(CREATE_ACTIVITY);
@@ -53,8 +53,12 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
       city: selectedCity,
       username: username
     }));
-    createActivity({variables: { activities: activityData }});
-    onClose();
+    const res =  await createActivity({variables: { activities: activityData }});
+      onClose();
+     if(res){
+      handleCityUpdate(!cityUpdate)
+     }
+    
   };
   
   return (
