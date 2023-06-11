@@ -67,7 +67,9 @@ useEffect(() =>{
         <GlobeInterface 
         cityUpdate = {cityUpdate}
         handleCityUpdate={handleCityUpdate}/>
-          <ItineraryCard onEdit={handleEdit}/>
+          <ItineraryCard 
+            // onEdit={handleEdit}
+            />
       </div>
     </div>
     // </ApolloProvider>
