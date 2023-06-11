@@ -45,11 +45,11 @@ const GlobeInterface = () => {
     setIsModalOpen(false);
   };
 
-  const globeWidth = useBreakpointValue({ base: '100%', md: '500px' });
+  const globeWidth = useBreakpointValue({ base: '100%', sm: '400px', md: '500px', lg: '800px', xl: '1000px' });
 
   return (
     <>
-    <Box width={globeWidth} mx="auto">
+    <Box width="100%" height="100vh" display="flex" justifyContent="center" alignItems="center">
       <Globe
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
         backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
