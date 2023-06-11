@@ -42,9 +42,6 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
     updatedActivities[index].body = e.target.value;
     setActivities(updatedActivities);
   };
-
-  const {loading, data} = useQuery(QUERY_CITIES);
-    var userCities = data?.cities || [];
     
   // in the function I made it map over the activities array and created a array of activity data objects including the neccessary variables for the createActivity mutation
   const handleSubmit = async (e) => {
@@ -57,6 +54,7 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
       username: username
     }));
     createActivity({variables: { activities: activityData }});
+    onClose();
   };
   
 

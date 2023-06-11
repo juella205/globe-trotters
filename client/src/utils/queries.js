@@ -53,5 +53,6 @@ export const QUERY_ACTIVITIES = gql`
         _id
         description
         title
+        city
       }
 }`
