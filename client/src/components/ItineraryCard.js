@@ -24,10 +24,10 @@ const ItineraryCard = ({ onEdit }) => {
     variables: { username, city:localStorage.getItem("selectedCity") },
   });
 
-  const handleEditClick = (index) => {
-    setEditIndex(index);
-    setEditedActivities([...itineraries[index].activities]);
-  };
+  // const handleEditClick = (index) => {
+  //   setEditIndex(index);
+  //   setEditedActivities([...itineraries[index].activities]);
+  // };
 
   const handleActivityTitleEdit = (activityIndex, e) => {
     const updatedActivities = [...editedActivities];
@@ -41,11 +41,11 @@ const ItineraryCard = ({ onEdit }) => {
     setEditedActivities(updatedActivities);
   };
 
-  const handleDeleteClick = (activityIndex) => {
-    const updatedActivities = [...editedActivities];
-    updatedActivities.splice(activityIndex, 1);
-    setEditedActivities(updatedActivities);
-  };
+  // const handleDeleteClick = (activityIndex) => {
+  //   const updatedActivities = [...editedActivities];
+  //   updatedActivities.splice(activityIndex, 1);
+  //   setEditedActivities(updatedActivities);
+  // };
 
   const handleSaveClick = (index) => {
     const updatedItineraries = [...itineraries];
@@ -82,9 +82,9 @@ const ItineraryCard = ({ onEdit }) => {
                       placeholder="Activity Body"
                       mb="2"
                     />
-                    <Button colorScheme="red" size="sm" onClick={() => handleDeleteClick(activityIndex)}>
+                    {/* <Button colorScheme="red" size="sm" onClick={() => handleDeleteClick(activityIndex)}>
                       Delete
-                    </Button>
+                    </Button> */}
                   </Box>
                 ))}
                 <Button colorScheme="blue" size="sm" onClick={() => handleSaveClick(index)}>
@@ -105,9 +105,9 @@ const ItineraryCard = ({ onEdit }) => {
                       <Text>{itinerary.description}</Text>
                     </ListItem>
                 </UnorderedList>
-                <Button colorScheme="teal" size="sm" mt="2" onClick={() => handleEditClick(index)}>
+                {/* <Button colorScheme="teal" size="sm" mt="2" onClick={() => handleEditClick(index)}>
                   Edit
-                </Button>
+                </Button> */}
               </>
             )}
           </CardBody>
