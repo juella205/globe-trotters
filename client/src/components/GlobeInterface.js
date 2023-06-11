@@ -24,7 +24,6 @@ const GlobeInterface = () => {
 
   const handleCityClick = (label, event, { lat, lng, altitude }) => {
     setIsModalOpen(true);
-    console.log('Selected city:', label.properties.NAME_EN);
 
     {/* setIsModalOpen(!isModalOpen) */}
     // Modal needs to be passed in to the return statement
