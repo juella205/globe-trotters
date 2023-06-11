@@ -13,10 +13,16 @@ import {
   Input,
 } from "@chakra-ui/react";
 
-const ItineraryCard = ({ itineraries, onEdit }) => {
+import { useQuery } from '@apollo/client';
+import { QUERY_ACTIVITIES } from "../utils/queries";
+
+const ItineraryCard = ({ onEdit }) => {
   const [editIndex, setEditIndex] = useState(-1);
   const [editedActivities, setEditedActivities] = useState([]);
-
+  const username = localStorage.getItem('username');
+  const {loading, data:itineraries} = useQuery(QUERY_ACTIVITIES, {
+    variables: { username, city:localStorage.getItem("selectedCity") },
+  });
   const handleEditClick = (index) => {
     setEditIndex(index);
     setEditedActivities([...itineraries[index].activities]);
@@ -47,7 +53,7 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
 
   return (
     <>
-      {itineraries.map((itinerary, index) => (
+      {itineraries.activities?.length>0 && !loading &&itineraries?.activities.map((itinerary, index) => (
         <Card key={index} mb="4" boxShadow="lg">
           <CardHeader bg="teal.500" color="white" py="2" px="4" fontSize="xl" fontWeight="bold">
             {itinerary.city}
@@ -84,12 +90,10 @@ const ItineraryCard = ({ itineraries, onEdit }) => {
                   Activities:
                 </Text>
                 <UnorderedList pl="4">
-                  {itinerary.activities.map((activity, activityIndex) => (
-                    <ListItem key={activityIndex}>
-                      <Text fontWeight="bold">{activity.title}</Text>
-                      <Text>{activity.body}</Text>
+                    <ListItem key={itinerary._id}>
+                      <Text fontWeight="bold">{itinerary.title}</Text>
+                      <Text>{itinerary.description}</Text>
                     </ListItem>
-                  ))}
                 </UnorderedList>
                 <Button colorScheme="teal" size="sm" mt="2" onClick={() => handleEditClick(index)}>
                   Edit
