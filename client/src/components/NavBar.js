@@ -19,7 +19,7 @@ import { HamburgerIcon, CloseIcon, AddIcon, SettingsIcon } from '@chakra-ui/icon
 import Login from './Login'; // Import the Login component
 import ItineraryModal from './ItineraryModal';
 
-const Links = ['Home', 'Itineraries'];
+
 
 const NavLink = ({ children }) => (
   <Link
@@ -65,34 +65,9 @@ const Navbar = ({onSave}) => {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} alignItems={'center'}>
-            <Box>Logo</Box>
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}
-            >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </HStack>
-          </HStack>
+          
           <Flex alignItems={'center'}>
-            <Button
-              variant={'solid'}
-              colorScheme={'teal'}
-              size={'sm'}
-              mr={4}
-              leftIcon={<AddIcon />}
-              onClick={handleNewPlan}
-            >
-              New Plan
-            </Button>
-            <ItineraryModal 
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onSave={handleSave}
-             />
+           
             <Button
               variant={'solid'}
               colorScheme={'teal'}
@@ -121,15 +96,7 @@ const Navbar = ({onSave}) => {
           </Flex>
         </Flex>
 
-        {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
+        
       </Box>
 
       {isLoginFormOpen && <Login />} {/* Render the Login component based on login form visibility */}
