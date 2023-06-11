@@ -21,7 +21,7 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER, CREATE_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
-const Login = () => {
+const Login = ({setIsLoggedIn}) => {
   const [userFormData, setUserFormData] = useState({
     username: "",
     email: "",
@@ -64,6 +64,7 @@ const Login = () => {
       localStorage.setItem("username", userFormData.username)
       console.log(data);
       Auth.login(data.login.token);
+      setIsLoggedIn(true);
     } catch (e) {
       console.error(e);
     }
