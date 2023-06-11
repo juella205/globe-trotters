@@ -4,7 +4,6 @@ const citySchema = new Schema({
     cityName: {
         type: String,
         required: true,
-        unique: true,
         trim: true,
     },
     username: {
