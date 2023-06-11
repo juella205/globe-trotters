@@ -20,14 +20,12 @@ import {
   ModalContent,
 } from "@chakra-ui/react";
 
+
 function App() {
   const { colorMode } = useColorMode();
-  const [itineraries, setItineraries] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleSaveItinerary = (itineraryData) => {
-    setItineraries([...itineraries, itineraryData]);
-  };
+  const[cityUpdate,setCityUpdate]=useState(false)
+  const selectedCity = localStorage.getItem("selectedCity");
 
   const handleEdit = (index) => {
     // Handle edit functionality here
@@ -41,13 +39,20 @@ function App() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-const client = new ApolloClient({
-  uri: '/graphql',
-  cache: new InMemoryCache(),
-});
+
+  const handleCityUpdate = (newCity) => {
+    setCityUpdate(newCity)
+  }
+// const client = new ApolloClient({
+//   uri: '/graphql',
+//   cache: new InMemoryCache(),
+// });
+useEffect(() =>{
+  console.log(localStorage.getItem("selectedCity"))
+}, [selectedCity]);
 
   return (
-    <ApolloProvider client={client}>
+    // <ApolloProvider client={client}>
     <div className="app">
       <div className="heading-container">
         <Heading
@@ -57,14 +62,14 @@ const client = new ApolloClient({
           Globe Trotters
         </Heading>
       </div>
-      <Navbar onSave={handleSaveItinerary} />
       <div className="content">
-        <GlobeInterface />
-          <ItineraryCard itineraries={itineraries} onEdit={handleEdit}/>
-        {/* <Itinerary /> */}
+        <GlobeInterface 
+        cityUpdate = {cityUpdate}
+        handleCityUpdate={handleCityUpdate}/>
+          <ItineraryCard onEdit={handleEdit}/>
       </div>
     </div>
-    </ApolloProvider>
+    // </ApolloProvider>
   );
 }
 

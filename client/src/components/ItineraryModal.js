@@ -21,7 +21,7 @@ import { CREATE_ACTIVITY, ADD_CITY } from '../utils/mutations';
 import { QUERY_CITIES } from "../utils/queries";
 const username = localStorage.getItem('username');
 
-const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
+const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity, cityUpdate,handleCityUpdate }) => {
   const [activities, setActivities] = useState([]);
 // using hook to define create activity function and its mutation
   const [createActivity] = useMutation(CREATE_ACTIVITY);
@@ -42,9 +42,6 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
     updatedActivities[index].body = e.target.value;
     setActivities(updatedActivities);
   };
-
-  const {loading, data} = useQuery(QUERY_CITIES);
-    var userCities = data?.cities || [];
     
   // in the function I made it map over the activities array and created a array of activity data objects including the neccessary variables for the createActivity mutation
   const handleSubmit = async (e) => {
@@ -56,7 +53,12 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
       city: selectedCity,
       username: username
     }));
-    createActivity({variables: { activities: activityData }});
+    const res =  await createActivity({variables: { activities: activityData }});
+      onClose();
+     if(res){
+      handleCityUpdate(!cityUpdate)
+     }
+    
   };
   
 
