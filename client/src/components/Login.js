@@ -60,7 +60,8 @@ const Login = () => {
       const { data } = await login({
         variables: { email: userFormData.email, password: userFormData.password },
       });
-
+      
+      localStorage.setItem("username", userFormData.username)
       console.log(data);
       Auth.login(data.login.token);
     } catch (e) {
@@ -87,7 +88,7 @@ const Login = () => {
       const { data } = await createUser({
         variables: { email: userFormData.email, password: userFormData.password, username: userFormData.username },
       });
-
+      localStorage.setItem("username", userFormData.username)
       console.log(data);
       Auth.login(data.createUser.token);
     } catch (e) {
