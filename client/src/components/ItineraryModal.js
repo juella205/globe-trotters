@@ -56,7 +56,7 @@ const ItineraryModal = ({ onSave, isOpen, onClose, selectedCity }) => {
       city: selectedCity,
       username: username
     }));
-    createActivity({ variables: { input: { activities: activityData } } });
+    createActivity({ variables: { activities: activityData } });
   };
   
   return (
