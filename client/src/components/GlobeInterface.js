@@ -4,7 +4,7 @@ import Globe from 'react-globe.gl';
 import geodata from '../testData/test.json'
 import ItineraryModal from './ItineraryModal';
 
-const GlobeInterface = () => {
+const GlobeInterface = ({handleCityUpdate,cityUpdate}) => {
   const [selectedCity, setSelectedCity] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [itineraries, setItineraries] = useState([]); // Define the itineraries state here
@@ -65,7 +65,10 @@ const GlobeInterface = () => {
         onLabelClick = {(label, event, { lat, lng, altitude }) => handleCityClick(label, event, { lat, lng, altitude })}
       />
     </Box>
-    <ItineraryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSaveItinerary} selectedCity={selectedCity}/>
+    <ItineraryModal 
+    cityUpdate = {cityUpdate}
+    handleCityUpdate={handleCityUpdate}
+    isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSave={handleSaveItinerary} selectedCity={selectedCity}/>
     </>
   );
 };
