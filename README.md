@@ -1,25 +1,21 @@
-# globe-trotters
+# Globe-trotters
 
 
 ## Description
 
-The "globe-trotters" project is a web application that allows users to create and manage travel itineraries for different cities around the world. Users can add activities to their itineraries, edit existing activities, and view their itineraries with detailed information.
+Globe-trotters is a web application that allows users to create and manage travel itineraries for different cities around the world. Users can add activities to their itineraries, edit existing activities, and view their itineraries with detailed information.
 
 
 ## Table of Contents
 
 - [Link](#Link)
-- [Screenshot](#Screenshot)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Questions](#questions)
 
 ## Link
 
-
-
-## Screenshot
-
+https://stormy-fortress-58107.herokuapp.com/
 
 
 ## Installation
@@ -37,4 +33,4 @@ After following the installation steps, open your web browser and visit http://l
 
 ## Questions
 
-For any questions, you can contact [Ali Momin]() [Lavanya Natchiappan]()       [Julianne Johnson](https://github.com/juella205)           [Stephen Spearman](https://github.com/DenimB96/)
+For any questions, you can contact [Ali Momin](https://github.com/alimomin7861), [Lavanya Natchiappan](https://github.com/lavanat), [Julianne Johnson](https://github.com/juella205) ,[Stephen Spearman](https://github.com/DenimB96/)
